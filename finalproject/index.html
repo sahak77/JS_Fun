@@ -1,0 +1,124 @@
+<html>
+
+<head>
+    <meta charset="utf8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="p5.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Press+Start+2P|Shojumaru&display=swap"
+        rel="stylesheet">
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+
+        div {
+            display: inline-block;
+        }
+
+        h1 {
+            padding: 20px;
+            text-align: center;
+        }
+
+        body {
+            font-family: 'Noto Sans', sans-serif !important;
+        }
+
+        #weather {
+            padding: 15px;
+            background-color: lawngreen;
+            font-family: 'Fredericka the Great', cursive;
+            font-family: 'Press Start 2P', cursive;
+            font-family: 'Shojumaru', cursive;
+            font-size: 40px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <table class="table table-hover w-75 m-auto">
+        <thead>
+            <button class="mt-3 mb-3" type="button" onclick="randColor()">Set random background color</button>       
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">characters</th>
+                <th scope="col">color</th>
+                <th scope="col">was born</th>
+                <th scope="col">was born %</th>
+                <th scope="col">died</th>
+                <th scope="col">died %</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>grass</td>
+                <td scope="row" style="background-color:green;"></td>
+                <td id="grassCount"></td>
+                <td id="grassCountTokos"></td>
+                <td id="grassCountDie"></td>
+                <td id="grassCountDieTokos"></td>
+
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>herbivorous</td>
+                <td scope="row" style="background-color:orange;"></td>
+                <td id="grassEaterCount"></td>
+                <td id="grassEaterCountTokos"></td>
+                <td id="grassEaterCountDie"></td>
+                <td id="grassEaterCountDieTokos"></td>
+            </tr>
+
+
+            <tr>
+                <th scope="row">3</th>
+                <td>Predator</td>
+                <td scope="row" style="background-color:red;"></td>
+                <td id="RedEaterCount"></td>
+                <td id="RedEaterCountTokos"></td>
+                <td id="RedEaterCountDie"></td>
+                <td id="RedEaterCountDieTokos"></td>
+
+
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>Assistant</td>
+                <td scope="row" style="background-color:blue;"></td>
+                <td id="CreatGrassCount"></td>
+                <td id="CreatGrassCountTokos"></td>
+                <td id="CreatGrassCountDie"></td>
+                <td id="CreatGrassCountDieTokos"></td>
+
+
+            </tr>
+            <tr>
+                <th scope="row">5</th>
+                <td>horse</td>
+                <td scope="row" style="background-color:yellow;"></td>
+                <td id="ChessCount"></td>
+                <td id="ChessCountTokos"></td>
+
+                <td id="ChessCountDie"></td>
+                <td id="ChessCountDieTokos"></td>
+
+
+            </tr>
+
+
+
+        </tbody>
+    </table>
+    
+    <p id="weather"></p>
+    <script src="script.js"></script>
+</body>
+
+</html>
