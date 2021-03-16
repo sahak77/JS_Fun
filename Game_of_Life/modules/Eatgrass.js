@@ -1,21 +1,21 @@
-class chess {
+class Eatgrass {
 	constructor(x, y) {
 		this.x = x;
 		this.y = y;
+		this.energy = 20;
 		this.multiply = 0;
-		this.energy = 3;
 		this.directions = [];
 	}
 	newDirections() {
 		this.directions = [
-			[this.x - 1, this.y - 2],
-			[this.x + 1, this.y - 2],
-			[this.x + 2, this.y - 1],
-			[this.x + 2, this.y + 1],
-			[this.x - 1, this.y + 2],
-			[this.x + 1, this.y + 2],
-			[this.x - 2, this.y + 1],
-			[this.x - 2, this.y - 1],
+			[this.x - 1, this.y - 1],
+			[this.x, this.y - 1],
+			[this.x + 1, this.y - 1],
+			[this.x - 1, this.y],
+			[this.x + 1, this.y],
+			[this.x - 1, this.y + 1],
+			[this.x, this.y + 1],
+			[this.x + 1, this.y + 1]
 		];
 	}
 	chooseCell(t) {
@@ -39,24 +39,20 @@ class chess {
 		if (cord) {
 			var x = cord[0];
 			var y = cord[1];
-			matrix[y][x] = 5;
+			matrix[y][x] = 2;
 			matrix[this.y][this.x] = 0;
 			this.x = x;
 			this.y = y;
 		}
 	}
 	eat() {
-		var fundCords_0 = this.chooseCell(1);
-		var fundCords_1 = this.chooseCell(2);
-		var fundCords_2 = this.chooseCell(3);
-		var fundCords_3 = this.chooseCell(4);
-		var fundCords = fundCords_0.concat(fundCords_1, fundCords_2, fundCords_3);
+		var fundCords = this.chooseCell(1);
 		var cord = random(fundCords);
 
 		if (cord) {
 			var x = cord[0];
 			var y = cord[1];
-			matrix[y][x] = 5;
+			matrix[y][x] = 2;
 			matrix[this.y][this.x] = 0;
 
 			this.x = x;
@@ -70,22 +66,7 @@ class chess {
 					grassArr.splice(i, 1);
 				}
 			}
-			for (var i in eatArr) {
-				if (x == eatArr[i].x && y == eatArr[i].y) {
-					eatArr.splice(i, 1);
-				}
-			}
-			for (var i in redArr) {
-				if (x == redArr[i].x && y == redArr[i].y) {
-					redArr.splice(i, 1);
-				}
-			}
-			for (var i in creatArr) {
-				if (x == creatArr[i].x && y == creatArr[i].y) {
-					creatArr.splice(i, 1);
-				}
-			}
-			if (this.multiply > 100) {
+			if (this.multiply == 3) {
 				this.mul()
 				this.multiply = 0;
 			}
@@ -100,19 +81,18 @@ class chess {
 	}
 	mul() {
 		this.multiply++;
-		var newCell = random(this.chooseCell(0));
-		if (this.multiply >= 3 && newCell) {
-			var newGrass = new chess(newCell[0], newCell[1]);
-			chessArr.push(newGrass);
-			matrix[newCell[1]][newCell[0]] = 5;
+		var newCell = random(this.chooseCell(0));		if (this.multiply >= 3 && newCell) {
+			var newGras = new Eatgrass(newCell[0], newCell[1]);
+			eatArr.push(newGras);
+			matrix[newCell[1]][newCell[0]] = 2;
 			this.multiply = 0;
 		}
 	}
 	die() {
 		matrix[this.y][this.x] = 0;
-		for (var i in chessArr) {
-			if (this.x == chessArr[i].x && this.y == chessArr[i].y) {
-				chessArr.splice(i, 1);
+		for (var i in eatArr) {
+			if (this.x == eatArr[i].x && this.y == eatArr[i].y) {
+				eatArr.splice(i, 1);
 			}
 		}
 	}

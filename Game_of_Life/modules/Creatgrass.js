@@ -1,14 +1,12 @@
-var LiveForm = require("./LiveForm");
-var random = require("./random.js");
-
-module.exports = class Creatgrass extends LiveForm {
+class Creatgrass {
 	constructor(x, y) {
-		super(x, y);
-		this.energy = 15;
+		this.x = x;
+		this.y = y;
+		this.energy = 10;
 		this.multiply = 0;
 		this.directions = [];
 	}
-	getNewDirections() {
+	newDirections() {
 		this.directions = [
 			[this.x, this.y - 1],
 			[this.x - 1, this.y],
@@ -17,8 +15,18 @@ module.exports = class Creatgrass extends LiveForm {
 		];
 	}
 	chooseCell(t) {
-		this.getNewDirections();
-		return super.chooseCell(t);
+		this.newDirections();
+		var found = [];
+		for (var i in this.directions) {
+			var x = this.directions[i][0];
+			var y = this.directions[i][1];
+			if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+				if (matrix[y][x] == t) {
+					found.push(this.directions[i]);
+				}
+			}
+		}
+		return found;
 	}
 	move() {
 		var fundCords = this.chooseCell(0);
@@ -34,103 +42,47 @@ module.exports = class Creatgrass extends LiveForm {
 		}
 	}
 	eat() {
-		if (Grasshashiv > 700 && Grasshashiv < 2000) {
+		var fundCords_1 = this.chooseCell(2);
+		var fundCords_2 = this.chooseCell(3);
+		var fundCords = fundCords_1.concat(fundCords_2);
+		var cord = random(fundCords);
 
-			var fundCords_1 = this.chooseCell(2);
-			var fundCords_2 = this.chooseCell(3);
-			var fundCords_3 = this.chooseCell(5);
+		if (cord) {
+			var x = cord[0];
+			var y = cord[1];
+			if (this.multiply > 5) {
+				matrix[y][x] = 1;
+				grassArr.push(new Grass(x, y));
 
-			var fundCords = fundCords_1.concat(fundCords_2, fundCords_3);
-			var cord = random(fundCords);
+			}
+			matrix[this.y][this.x] = 0;
 
-			if (cord) {
-				var x = cord[0];
-				var y = cord[1];
-				matrix[y][x] = 4;
-				matrix[this.y][this.x] = 0;
+			this.x = x;
+			this.y = y;
 
-				this.x = x;
-				this.y = y;
+			this.multiply++;
+			this.energy += 2;
 
-				this.multiply++;
-				this.energy += 2;
-
-				for (var i in redArr) {
-					if (x == redArr[i].x && y == redArr[i].y) {
-						RedEaterhashivDie++;
-						redArr.splice(i, 1);
-					}
-				}
-				for (var i in grassEaterArr) {
-					if (x == grassEaterArr[i].x && y == grassEaterArr[i].y) {
-						GrassEaterhashivDie++;
-						grassEaterArr.splice(i, 1);
-					}
-				}
-				for (var i in chessArr) {
-					if (x == chessArr[i].x && y == chessArr[i].y) {
-						ChesshashivDie++;
-						chessArr.splice(i, 1);
-					}
+			for (var i in redArr) {
+				if (x == redArr[i].x && y == redArr[i].y) {
+					redArr.splice(i, 1);
 				}
 			}
-
-			if (this.multiply > 1) {
-				this.mul();
-				this.multiply = 0;
-			}
-			else {
-				this.move();
-				this.energy--;
-				if (this.energy < -5) {
-					this.die();
+			for (var i in eatArr) {
+				if (x == eatArr[i].x && y == eatArr[i].y) {
+					eatArr.splice(i, 1);
 				}
 			}
 		}
-		else if (Grasshashiv < 700 || Grasshashiv > 2000) {
-
-			var fundCords_1 = this.chooseCell(2);
-			var fundCords_2 = this.chooseCell(3);
-			var fundCords = fundCords_1.concat(fundCords_2);
-			var cord = random(fundCords);
-
-			if (cord) {
-				var x = cord[0];
-				var y = cord[1];		
-				matrix[y][x] = 4;
-		
-				matrix[this.y][this.x] = 0;
-
-				this.x = x;
-				this.y = y;
-
-				this.multiply++;
-				this.energy += 2;
-
-				for (var i in redArr) {
-					if (x == redArr[i].x && y == redArr[i].y) {
-						RedEaterhashivDie++;
-						redArr.splice(i, 1);
-					}
-				}
-				for (var i in grassEaterArr) {
-					if (x == grassEaterArr[i].x && y == grassEaterArr[i].y) {
-						GrassEaterhashivDie++;
-						grassEaterArr.splice(i, 1);
-					}
-				}
-			}
-
-			if (this.multiply > 3) {
-				this.mul();
-				this.multiply = 0;
-			}
-			else {
-				this.move();
-				this.energy--;
-				if (this.energy < 0) {
-					this.die();
-				}
+		if (this.multiply > 4) {
+			this.mul();
+			this.multiply = 0;
+		}
+		else {
+			this.move();
+			this.energy--;
+			if (this.energy < 0) {
+				this.die();
 			}
 		}
 	}
@@ -138,7 +90,6 @@ module.exports = class Creatgrass extends LiveForm {
 		this.multiply += 2;
 		var newCell = random(this.chooseCell(0));
 		if (this.multiply >= 2 && newCell) {
-			CreatGrasshashiv++;
 			var newGras = new Creatgrass(newCell[0], newCell[1]);
 			creatArr.push(newGras);
 			matrix[newCell[1]][newCell[0]] = 4;
@@ -146,12 +97,11 @@ module.exports = class Creatgrass extends LiveForm {
 		}
 	}
 	die() {
-		matrix[this.y][this.x] = 0;
-		for (var i in creatArr) {
-			if (this.x == creatArr[i].x && this.y == creatArr[i].y) {
-				CreatGrasshashivDie++;
-				creatArr.splice(i, 1);
-			}
+for (var i in this.directions) {		var x = this.directions[i][0];
+			var y = this.directions[i][1];
+		if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
+			matrix[this.y][this.x] = 0;
 		}
+	}
 	}
 }
