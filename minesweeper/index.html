@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="container">
+        <button onclick="startNewGame()">restart</button>
+        <button onclick="startNewGame(9, 9, 10)">Beginner</button>
+        <button onclick="startNewGame(16, 16, 40)">Intermediate</button>
+        <button onclick="startNewGame(30, 16, 99)">Expert</button>
+        <input id="heightVal" value="20" placeholder="HEIGHT" />
+        <input id="widthVal" value="30" placeholder="WIDTH"/>
+        <input id="mineVal" value="145" placeholder="MINE" />
+        <button onclick="customValue()">Custom</button>
+    </div>
+    <br />
+    
+    <table oncontextmenu="return false;" class="game_table"></table>
+
+    <script src="./Modules/matrix.js"></script>
+    <script src="./script.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</body>
+</html>

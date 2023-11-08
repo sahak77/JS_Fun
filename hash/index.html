@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="display: flex;">
+        <div style="margin-right: 10px;">
+            <h2>hash Text</h2>
+            <div>
+                <input placeholder="hash key" type="text" id='hashKey' style="display: inline-block; width: 143px;" />
+            </div>
+            <br />
+            <div style="display: flex; flex-direction: column; width: 150px;">
+                <textarea cols="20" rows="4" id="hashText" placeholder="unhash text"></textarea>
+                <br />
+                <button id="convertHash">convert</button>
+            </div>
+        </div>
+        <div style="border: 1px solid black; width: 200px; height: 200px; overflow-y: scroll; padding: 15px;">
+            <span style="color: red;">Result</span><button style="transform: translateX(120%);" type="button" id='hashTextCopy'>copy text</button>
+            <hr />
+            <span id="showHashText"></span>
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div style="display: flex;">
+        <div style="margin-right: 10px;">
+            <h2>unhash Text</h2>
+            <div>
+                <input type="text" placeholder="unhash key" id='unhashKey'
+                    style="display: inline-block; width: 143px;" />
+            </div>
+            <br />
+            <div style="display: flex; flex-direction: column; width: 150px;">
+                <textarea placeholder="hash text" cols="20" rows="4" id="unhashText"></textarea>
+                <br />
+                <button id="convertUnhash" type="button">convert</button>
+            </div>
+        </div>
+        <div style="border: 1px solid black; width: 200px; height: 200px; overflow-y: scroll; padding: 15px;">
+            <span style="color: red;">Result</span><button id='unhashTextCopy' type="button" style="transform: translateX(120%);">copy text</button>
+            <hr />
+            <span id="showUnhashText"></span>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
